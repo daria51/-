@@ -1,0 +1,32 @@
+def max_balanced_team(n, skills):
+    # Сортируем массив навыков
+    skills.sort()
+    max_team_size = 0
+    left = 0
+
+    for right in range(n):
+        # Пока разница между максимальным и минимальным не превышает 5, продолжаем движение вправо
+        while skills[right] - skills[left] > 5:
+            left += 1
+        # Обновляем максимальный размер команды
+        max_team_size = max(max_team_size, right - left + 1)
+
+    return max_team_size
+
+
+def main():
+    n = int(input("Введите количество студентов: "))
+    skills = []
+    print("Введите уровень программирования студентов (через пробел): ")
+    skills = list(map(int, input().split()))
+
+    # Проверка корректности ввода
+    if len(skills) != n:
+        print("Количество навыков не совпадает с количеством студентов.")
+        return
+
+    # Вычисление максимального размера сбалансированной команды
+    result = max_balanced_team(n, skills)
+    print(f"Максимальное количество студентов в сбалансированной команде: {result}")
+
+main() #Вызов функции main()
